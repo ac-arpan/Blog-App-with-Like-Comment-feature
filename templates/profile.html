@@ -1,0 +1,45 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div class="row mb-4" >
+        <div class="card col-lg-3 mx-auto" style="width: 18rem;">
+          {% set profile_pic = 'profilepics/' + data.propic %}
+                <img src="{{url_for('static',filename=profile_pic)}}" class="img-thumbnail mt-4" alt="Responsive image">
+                <p>Bio should be added</p>
+        
+        </div>
+
+</div>
+
+<div class="text-center mb-4">
+<h2>Upload a profile pic</h2>
+<div>
+  <form action="/uploader" method = "post" enctype="multipart/form-data">
+    <input type="file" name="file1">
+    <button class = "bt btn-primary" type=submit>Upload</button>
+  </form>
+</div>
+</div>
+
+    <div class="jumbotron text-center">
+        <h1>{{data.name}}</h1>
+        <h2><em>{{data.username}}</em></h2>
+
+        <p>Here some description should be added later</p>
+    </div>
+
+    <hr>
+    <div class="container">
+       <div class="text-center">
+            <h1>My recent Articles</h1>
+       </div> 
+       <hr>
+       <hr>
+       {% for article in articles %}
+        <h2>{{article.title}}</h2>
+        <p><b>{{article.body | safe}}</b></p>
+        <hr>
+       {% endfor %}
+    </div>
+{% endblock %}

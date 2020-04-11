@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+    <div class="jumbotron">
+        <h1>Welcome to our site</h1>
+        <p>We like to share your innovative and also informative articles</p>
+        <p>You can write article on any topic.</p>
+        <p>Top articles will be featured in front page</p>
+        {% if session.logged_in == NULL %}
+        <a href="/register" class="btn btn-primary btn-lg">Register</a>
+        <a href="/login" class="btn btn-success btn-lg">Login</a>
+        {% endif%}
+    </div>
+
+        
+     <div class="jumbotron my-4">
+       <h1><u>Top Article:</u></h1>
+       <p><h2>{{article.title}}</h2></p>
+       <p>{{article.body | safe }}</p>
+       <p>by {{article.author}} on {{article.date}}</p>
+       {% if session.logged_in %}
+       {% if liked %}
+       <a href="/articles/article_dislike/{{article.id}}"><button class="btn btn-primary float-left">Liked</button></a>
+       <p class= "float-left mt-1 mx-2"><b>Total likes : {{article.like_count}}</b></p>
+       {% else %}
+       
+       <a href="/articles/article_like/{{article.id}}"><button class="btn btn-primary float-left">Like</button></a>
+       <p class= "float-left mt-1 mx-2"><b>Total likes : {{article.like_count}}</b></p>
+       {% endif %}
+      <a href="/articles/article_comment/{{article.id}}"><button class="btn btn-success float-right">Comment</button></a>
+      <p class= "float-right mt-1 mx-2"><b>Total comments : {{article.comment_count}}</b></p>
+      {% endif %}
+
+     </div>  
+
+     <h1><em>Our Contributers</em></h1>
+     <div class="container my-4">        
+        <div class="row mb-4" >
+        {% for user in users %}
+            <div class="card col-lg-3 mx-auto" style="width: 18rem;">
+              {% set profile_pic = 'profilepics/' +  user.propic %}
+                <img src="{{url_for('static',filename=profile_pic)}}" class="img-thumbnail mt-4" alt="Responsive image">
+                <div class="card-body">
+                  <h5 class="card-title">{{user.name}}</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  <a href="/profile_route/{{user.sno}}" class="btn btn-primary">{{user.username}}</a>
+                </div>
+              </div>
+        {% endfor %}
+              </div>
+              </div>
+{% endblock %}

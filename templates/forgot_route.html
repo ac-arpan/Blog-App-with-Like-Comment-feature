@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+    <h1>Reset Password</h1>
+    
+    <form action="" method="POST">
+        <div class="form-group">
+            <label>Enter the email-id associated to your account</label>
+            <input type="email" name="email" class="form-control" required value={{request.form.email}}>
+        </div>
+
+        <button type="submit" class="btn btn-primary">RESET</button>
+    </form>
+
+{% endblock %}
